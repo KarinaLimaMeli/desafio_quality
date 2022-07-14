@@ -1,7 +1,9 @@
 package com.meli.desafio_quality.controller;
+import com.meli.desafio_quality.mocks.DistrictMocks;
 import com.meli.desafio_quality.model.District;
 import com.meli.desafio_quality.service.DistrictService;
 import com.meli.desafio_quality.util.Util;
+import org.junit.jupiter.api.Assertions;
 import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
@@ -16,8 +18,10 @@ import org.mockito.quality.Strictness;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
@@ -33,8 +37,7 @@ class DistrictControllerTest {
 
     @BeforeEach
     void setUp() {
-        BDDMockito.when(districtService.getDistrictByName(ArgumentMatchers.anyString()))
-                .thenReturn(Util.allDistricts().get(0));
+
     }
 
     @AfterEach
@@ -52,19 +55,15 @@ class DistrictControllerTest {
     @Test
     void getDistrictByName() {
         String name = Util.allDistricts().get(0).getDistrictName();
+        DistrictMocks.mock_getDistrictByName(name, districtService);
+
         ResponseEntity<District> response = controller.getDistrictByName(name);
         verify(districtService, atLeastOnce()).getDistrictByName(name);
+        Assertions.assertNotNull(response.getBody());
+        Assertions.assertTrue(response.getBody().getDistrictName() == name);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 
     }
 
-    private void mock_getDistrictByName(String name) {
-        District findedDistrict =
-        BDDMockito.when(districtService.getDistrictByName(ArgumentMatchers.anyString()))
-                .thenReturn(Util.allDistricts().get(0));
 
-    }
-
-    private void mock_createDistrict() {
-        BDDMockito.doNothing().when(districtService).createDistrict(ArgumentMatchers.anyLong());
-    }
 }
