@@ -13,6 +13,12 @@ public class DistrictMocks {
                 district -> district.getDistrictName().equals(name)).collect(Collectors.toList()).get(0);
         BDDMockito.when(service.getDistrictByName(ArgumentMatchers.anyString()))
                 .thenReturn(findedDistrict);
+    }
 
+    public static void mock_notFoundGetDistrictByName(DistrictService service) {
+        BDDMockito.when(service.getDistrictByName(ArgumentMatchers.anyString()))
+                .thenAnswer(invocationOnMock -> {
+                    throw new Exception("teste");
+                });
     }
 }
