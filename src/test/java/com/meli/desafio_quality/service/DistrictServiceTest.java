@@ -14,6 +14,8 @@ import org.mockito.quality.Strictness;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 import static com.meli.desafio_quality.util.Util.allDistricts;
@@ -60,8 +62,18 @@ public class DistrictServiceTest {
     }
     @Test
     void createDistrict (){
-        District newDistrict = allDistricts().get(0);
-        DistrictMocks.mock_createDistrict(districtRepository);
+        District newDistrict = new District("Bairro", new BigDecimal(2000));
+        DistrictMocks.mock_createDistrict(districtRepository, newDistrict, allDistricts());
+        Exception testException = null;
+        verify(districtRepository, atLeastOnce()).createDistrict(newDistrict);
+
+    }
+    @Test
+    void districtAlreadyExist (){
+        List<District> allDistrict = allDistricts();
+        District newDistrict = new District("Bairro", new BigDecimal(2000));
+        allDistrict.add(newDistrict);
+        DistrictMocks.mock_createDistrict(districtRepository, newDistrict, allDistrict);
         Exception testException = null;
         try {
             service.createDistrict(newDistrict);
