@@ -2,27 +2,42 @@ package com.meli.desafio_quality.service;
 
 import com.meli.desafio_quality.model.Property;
 import com.meli.desafio_quality.model.Room;
+import com.meli.desafio_quality.repository.PropertyRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Service
-public class PropertyServiceImp implements PropertyService{
+public class PropertyServiceImp implements PropertyService {
+
+    @Autowired
+    private PropertyRepository propertyRepository;
 
     @Override
     public void createProperty(Property property) {
-
+        propertyRepository.createProperty(property);
     }
 
     @Override
     public double calculateTotalArea(String name) {
-        return 0;
+        Property property = findByName(name);
+        return property.getRoomList().stream().map(r -> r.getLength() * r.getWidth())
+                .reduce(Double::sum).orElse(0.0);
     }
 
     @Override
-    public BigDecimal calculateTotalPrice(String name) {
-        return null;
+    public Property findByName(String name) {
+        return propertyRepository.findByName(name);
+    }
+
+    @Override
+    public double calculateTotalPrice(String name) {
+        Property property = findByName(name);
+        BigDecimal valueDistrict = property.getDistrict().getValueDistrictM2();
+        double totalArea = calculateTotalArea(name);
+        return  valueDistrict.doubleValue() * totalArea;
     }
 
     @Override

@@ -1,13 +1,11 @@
 package com.meli.desafio_quality.controller;
 
 import com.meli.desafio_quality.model.Property;
+import com.meli.desafio_quality.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -15,39 +13,43 @@ import javax.validation.Valid;
 @RequestMapping("/property")
 public class PropertyController {
 
-//    @Autowired
-//    PropertyService propertyService;
+    @Autowired
+    private PropertyService propertyService;
+
+    @PostMapping("/create")
+    public ResponseEntity<Void> createProperty(@RequestBody @Valid Property property) {
+        propertyService.createProperty(property);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{name}")
+    public ResponseEntity<Property> findByName(@PathVariable String name) {
+        return ResponseEntity.ok().body(propertyService.findByName(name));
+    }
+
+    @GetMapping("/totalm2/{name}")
+    public double calculateTotalArea(@PathVariable String name) {
+        return propertyService.calculateTotalArea(name);
+    }
+
+    @GetMapping("/totalprice/{name}")
+    public double calculateTotalPrice(@PathVariable String name){
+        return propertyService.calculateTotalPrice(name);
+    }
+
+
 
 
     /*
-    requisito 0
-    @Post
-    cadastra propriedade
-
-
-    requisito 1
-    - Calcule o total de metros quadrados de uma propriedade
-  @GetMapping("/{name}/totalm2")
-
-    requisito 2
-    - Indique o valor de uma propriedade com base em seus cômodos e
-medidas. Lembre-se que os preços por metro quadrado são determinados de
-acordo com a vizinhança.
-
-@GetMapping("/{name}/totalprice)
-
     requisito 3
     - Determine qual é o maior cômodo.
 
     @GetMapping("/{name}/biggestRoom")
-
     requisito 4
     - Determinar a quantidade de metros quadrados que tem cada
 cômodo de uma propriedade.
 
     @GetMapping("/name}/m2byroom")
-
-
      */
 
 }
