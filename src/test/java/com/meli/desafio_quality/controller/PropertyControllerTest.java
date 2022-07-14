@@ -3,12 +3,11 @@ package com.meli.desafio_quality.controller;
 import com.meli.desafio_quality.model.Property;
 import com.meli.desafio_quality.service.PropertyService;
 import com.meli.desafio_quality.util.UtilProperty;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -27,6 +26,11 @@ class PropertyControllerTest {
 
     @Mock
     PropertyService propertyService;
+
+    @BeforeEach
+    public void setup() {
+        BDDMockito.doNothing().when(propertyService).createProperty(ArgumentMatchers.any(Property.class));
+    }
 
     @Test
     @DisplayName("Valida se retorna o status 201 quando são informados os dados corretos de uma propriedade.")
