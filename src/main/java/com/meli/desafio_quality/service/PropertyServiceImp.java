@@ -56,12 +56,5 @@ public class PropertyServiceImp implements PropertyService {
                 .forEach(room -> room.setTotalArea(room.getLength() * room.getWidth()));
         return property.getRoomList();
 
-        /*
-        //Jeito de raiz um foreach
-        for (Room room : rooms) {
-            room.setTotalArea(room.getLength() * room.getWidth());
-        }
-        return property.getRoomList();
-         */
     }
 }
