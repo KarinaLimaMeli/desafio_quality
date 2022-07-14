@@ -7,10 +7,9 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class ErrorResponseDetails {
+public class ErrorBodyValidationsResponseResponse {
     private String title;
-    private int status;
-    private String link;
     private String message;
+    private String fields;
     private LocalDateTime timestamp;
 }

@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class DistrictNotFound extends RuntimeException {
-    public DistrictNotFound(String message) {
+public class DistrictAlreadyExist extends RuntimeException {
+    public DistrictAlreadyExist(String message) {
         super(message);
     }
 }

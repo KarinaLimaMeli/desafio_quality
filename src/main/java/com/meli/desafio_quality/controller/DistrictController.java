@@ -22,7 +22,7 @@ public class DistrictController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/{districtName}")
     public ResponseEntity<District> getDistrictByName(@PathVariable String districtName) {
         return ResponseEntity.ok(districtService.getDistrictByName(districtName));
     }
