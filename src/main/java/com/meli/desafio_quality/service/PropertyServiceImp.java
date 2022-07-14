@@ -1,5 +1,6 @@
 package com.meli.desafio_quality.service;
 
+import com.meli.desafio_quality.exception.PropertyNameNotFound;
 import com.meli.desafio_quality.model.Property;
 import com.meli.desafio_quality.model.Room;
 import com.meli.desafio_quality.repository.PropertyRepository;
@@ -30,7 +31,11 @@ public class PropertyServiceImp implements PropertyService {
 
     @Override
     public Property findByName(String name) {
-        return propertyRepository.findByName(name);
+        try {
+            return propertyRepository.findByName(name);
+        } catch (Exception ex) {
+            throw new PropertyNameNotFound("Este imóvel não foi encontrado!");
+        }
     }
 
     @Override
