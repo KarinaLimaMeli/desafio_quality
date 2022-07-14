@@ -36,21 +36,39 @@ class DistrictControllerTest {
         @Mock
         DistrictService districtService;
 
-    @BeforeEach
-    void setUp() {
-
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
+//    @BeforeEach
+//    void setUp() {
+//
+//    }
+//
+//    @AfterEach
+//    void tearDown() {
+//    }
 
     @Test
     void createDistrict() {
         District newDistrict = allDistricts().get(0);
+        DistrictMocks.mock_createDistrict(newDistrict, districtService);
+
         ResponseEntity<Void> response = controller.createDistrict(newDistrict);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         verify(districtService, atLeastOnce()).createDistrict(newDistrict);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+    }
+
+    @Test
+    void districtAlreadyExist() {
+        District newDistrict = allDistricts().get(0);
+        DistrictMocks.mock_districtAlreadyExist(newDistrict, districtService);
+        Exception testException = null;
+        try {
+            controller.createDistrict(newDistrict);
+        } catch (Exception exception) {
+            testException = exception;
+        }
+        verify(districtService, atLeastOnce()).createDistrict(newDistrict);
+        assertThat(testException.getMessage()).isEqualTo("teste");
+
     }
 
     @Test
