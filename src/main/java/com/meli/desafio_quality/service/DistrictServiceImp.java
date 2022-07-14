@@ -18,11 +18,6 @@ public class DistrictServiceImp implements DistrictService {
 
     @Override
     public District getDistrictByName(String name) {
-        try {
-            return districtRepository.getDistrictByName(name);
-        } catch (Exception e) {
-            throw e;
-        }
-
+        return districtRepository.getDistrictByName(name);
     }
 }
