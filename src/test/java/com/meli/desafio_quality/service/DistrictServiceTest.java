@@ -11,10 +11,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
-import java.util.Optional;
 
 import static com.meli.desafio_quality.util.Util.allDistricts;
 import static org.assertj.core.api.Assertions.assertThat;

@@ -6,8 +6,6 @@ import com.meli.desafio_quality.util.Util;
 import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 
-import java.util.stream.Collectors;
-
 public class DistrictMocks {
     public static void mock_getDistrictByName(String name, DistrictService service) {
         District foundDistrict = Util.allDistricts().stream().filter(

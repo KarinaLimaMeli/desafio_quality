@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 
 @Repository
 @Data
-public class DistrictRepositoryImp implements DistrictRepository{
+public class DistrictRepository {
 
     private ArrayList<District> allDistricts;
 
-    public DistrictRepositoryImp() {
+    public DistrictRepository() {
         this.allDistricts = new ArrayList<>();
     }
 
