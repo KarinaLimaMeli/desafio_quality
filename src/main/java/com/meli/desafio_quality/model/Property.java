@@ -2,16 +2,13 @@ package com.meli.desafio_quality.model;
 
 import lombok.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+@Data
 public class Property {
 
     @NotBlank(message = "O nome da propriedade não pode estar vazio.")
@@ -22,7 +19,7 @@ public class Property {
 
     private District district;
 
-    private List<Room> roomList;
+    private List<@Valid Room> roomList;
 
 
 }
