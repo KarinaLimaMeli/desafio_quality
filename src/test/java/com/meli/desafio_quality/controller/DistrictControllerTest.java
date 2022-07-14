@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import static com.meli.desafio_quality.util.Util.allDistricts;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
@@ -46,7 +47,7 @@ class DistrictControllerTest {
 
     @Test
     void createDistrict() {
-        District newDistrict = Util.allDistricts().get(0);
+        District newDistrict = allDistricts().get(0);
         ResponseEntity<Void> response = controller.createDistrict(newDistrict);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         verify(districtService, atLeastOnce()).createDistrict(newDistrict);
@@ -54,13 +55,14 @@ class DistrictControllerTest {
 
     @Test
     void getDistrictByName() {
-        String name = Util.allDistricts().get(0).getDistrictName();
+        String name = allDistricts().get(0).getDistrictName();
         DistrictMocks.mock_getDistrictByName(name, districtService);
 
         ResponseEntity<District> response = controller.getDistrictByName(name);
         verify(districtService, atLeastOnce()).getDistrictByName(name);
+
         Assertions.assertNotNull(response.getBody());
-        Assertions.assertTrue(response.getBody().getDistrictName() == name);
+        Assertions.assertTrue(response.getBody().getDistrictName().equals(name));
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 
     }
