@@ -48,7 +48,7 @@ class DistrictControllerTest {
     @Test
     void createDistrict() {
         District newDistrict = allDistricts().get(0);
-        DistrictMocks.mock_createDistrict(newDistrict, districtService);
+        DistrictMocks.mock_createDistrict(districtService);
 
         ResponseEntity<Void> response = controller.createDistrict(newDistrict);
         verify(districtService, atLeastOnce()).createDistrict(newDistrict);
@@ -59,7 +59,7 @@ class DistrictControllerTest {
     @Test
     void districtAlreadyExist() {
         District newDistrict = allDistricts().get(0);
-        DistrictMocks.mock_districtAlreadyExist(newDistrict, districtService);
+        DistrictMocks.mock_districtAlreadyExist(districtService);
         Exception testException = null;
         try {
             controller.createDistrict(newDistrict);
