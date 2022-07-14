@@ -18,8 +18,7 @@ import java.util.Optional;
 
 import static com.meli.desafio_quality.util.Util.allDistricts;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
@@ -49,14 +48,27 @@ public class DistrictServiceTest {
         String name = "nome que não existe no BD";
         DistrictMocks.mock_notFoundGetDistrictByName(districtRepository);
         District response = null;
-        Exception testeException = null;
+        Exception testException = null;
         try {
             response = service.getDistrictByName(name);
         } catch (Exception exception) {
-            testeException = exception;
+            testException = exception;
         }
         verify(districtRepository, atLeastOnce()).getDistrictByName(name);
         Assertions.assertNull(response);
-        assertThat(testeException.getMessage()).isEqualTo("teste");
+        assertThat(testException.getMessage()).isEqualTo("teste");
+    }
+    @Test
+    void createDistrict (){
+        District newDistrict = allDistricts().get(0);
+        DistrictMocks.mock_createDistrict(districtRepository);
+        Exception testException = null;
+        try {
+            service.createDistrict(newDistrict);
+        } catch (Exception exception){
+            testException = exception;
+        }
+        verify(districtRepository,atLeastOnce()).createDistrict(newDistrict);
+
     }
 }
