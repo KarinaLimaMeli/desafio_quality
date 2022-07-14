@@ -26,10 +26,9 @@ public class HandlerBodyExeptions extends ResponseEntityExceptionHandler {
                 ErrorBodyValidationsResponseResponse.builder()
                         .timestamp(LocalDateTime.now())
                         .title("Campos inválidos")
-                        .message(ex.getClass().getName())
                         .fields(errors.stream().map(
                                 FieldError::getField).collect(Collectors.joining("; ")))
-                        .fieldsMessages(errors.stream().map(
+                        .message(errors.stream().map(
                                 FieldError::getDefaultMessage).collect(Collectors.joining("; ")))
                         .build()
                 , status

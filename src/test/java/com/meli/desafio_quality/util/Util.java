@@ -6,6 +6,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class Util {
+    /**
+     * Este método retorna um novo arrayList de District.
+     * @return allDistricts
+     */
     public static ArrayList<District> allDistricts () {
         ArrayList<District> allDistricts = new ArrayList<>();
 

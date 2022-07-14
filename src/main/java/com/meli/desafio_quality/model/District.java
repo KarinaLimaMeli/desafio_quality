@@ -19,7 +19,7 @@ public class District {
     @Size(max = 45, message = "O comprimento do bairro não pode exceder 45 caracteres.")
     private String districtName;
 
-    @NotBlank(message = "O valor do metro quadrado não pode estar vazio.")
+    // @NotBlank(message = "O valor do metro quadrado não pode estar vazio.")
     private BigDecimal valueDistrictM2;
 
 }

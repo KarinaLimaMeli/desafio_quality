@@ -24,7 +24,7 @@ public class DistrictRepository {
     }
 
     public District getDistrictByName(String name) {
-        return this.getAllDistricts().stream().filter(district -> district.getDistrictName().equals(name))
+        return this.getAllDistricts().stream().filter(district -> district.getDistrictName().equalsIgnoreCase(name))
                 .collect(Collectors.toList()).get(0);
     }
 }

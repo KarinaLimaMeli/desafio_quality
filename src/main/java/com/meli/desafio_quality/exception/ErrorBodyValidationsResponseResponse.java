@@ -11,6 +11,5 @@ public class ErrorBodyValidationsResponseResponse {
     private String title;
     private String message;
     private String fields;
-    private String fieldsMessages;
     private LocalDateTime timestamp;
 }
