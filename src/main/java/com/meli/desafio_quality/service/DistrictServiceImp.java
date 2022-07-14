@@ -13,7 +13,7 @@ public class DistrictServiceImp implements DistrictService {
 
     @Override
     public void createDistrict(District district) {
-
+        districtRepository.createDistrict(district);
     }
 
     @Override
