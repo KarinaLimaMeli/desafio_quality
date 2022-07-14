@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
@@ -19,7 +21,8 @@ public class District {
     @Size(max = 45, message = "O comprimento do bairro não pode exceder 45 caracteres.")
     private String districtName;
 
-    // @NotBlank(message = "O valor do metro quadrado não pode estar vazio.")
+    @DecimalMin(value = "0.0", inclusive = false, message = "o valor deve ser positivo")
+    @Digits(integer = 6, fraction = 7, message = "")
     private BigDecimal valueDistrictM2;
 
 }
