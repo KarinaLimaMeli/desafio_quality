@@ -1,8 +1,10 @@
 package com.meli.desafio_quality.service;
 
+import com.meli.desafio_quality.exception.DistrictNotFound;
 import com.meli.desafio_quality.exception.PropertyNameNotFound;
 import com.meli.desafio_quality.model.Property;
 import com.meli.desafio_quality.model.Room;
+import com.meli.desafio_quality.repository.DistrictRepository;
 import com.meli.desafio_quality.repository.PropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +19,16 @@ public class PropertyServiceImp implements PropertyService {
     @Autowired
     private PropertyRepository propertyRepository;
 
+    @Autowired
+    private DistrictRepository districtRepository;
+
     @Override
     public void createProperty(Property property) {
-        propertyRepository.createProperty(property);
+        if (districtRepository.getDistrictByName(property.getDistrict().getDistrictName()) != null) {
+            propertyRepository.createProperty(property);
+        } else {
+            throw new DistrictNotFound("Bairro não cadastrado!");
+        }
     }
 
     @Override
