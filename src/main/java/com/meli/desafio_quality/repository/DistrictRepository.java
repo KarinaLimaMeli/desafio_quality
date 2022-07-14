@@ -1,14 +1,33 @@
 package com.meli.desafio_quality.repository;
 
 import com.meli.desafio_quality.model.District;
+import lombok.Data;
+
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
-public interface DistrictRepository {
+@Repository
+@Data
+public class DistrictRepositoryImp implements DistrictRepository{
 
-    void createDistrict(District district);
+    private ArrayList<District> allDistricts;
 
-    ArrayList<District> getAllDistrics();
+    public DistrictRepositoryImp() {
+        this.allDistricts = new ArrayList<>();
+    }
 
-    District getDistrictByName(String name);
+    public void createDistrict(District district) {
+        this.allDistricts.add(district);
+    }
+
+    public ArrayList<District> getAllDistrics() {
+        return this.allDistricts;
+    }
+
+    public District getDistrictByName(String name) {
+        return this.getAllDistrics().stream().filter(district -> district.getDistrictName().equals(name))
+                .collect(Collectors.toList()).get(0);
+    }
 }
