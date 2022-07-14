@@ -1,6 +1,6 @@
 package com.meli.desafio_quality.model;
 
-import lombok.*;
+import lombok.Data;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;

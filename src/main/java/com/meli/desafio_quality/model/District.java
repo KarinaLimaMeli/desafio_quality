@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 public class District {
 
     private String districtName;
-
     private BigDecimal valueDistrictM2;
 
 }
