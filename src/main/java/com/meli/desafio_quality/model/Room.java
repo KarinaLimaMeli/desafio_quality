@@ -1,12 +1,16 @@
 package com.meli.desafio_quality.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.*;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Room {
 
     @NotBlank(message = "O campo não pode estar vazio.")

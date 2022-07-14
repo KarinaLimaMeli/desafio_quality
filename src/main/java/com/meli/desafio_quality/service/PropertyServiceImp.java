@@ -24,9 +24,11 @@ public class PropertyServiceImp implements PropertyService {
 
     @Override
     public void createProperty(Property property) {
-        if (districtRepository.getDistrictByName(property.getDistrict().getDistrictName()) != null) {
-            propertyRepository.createProperty(property);
-        } else {
+        try {
+            if (districtRepository.getDistrictByName(property.getDistrict().getDistrictName()) != null) {
+                propertyRepository.createProperty(property);
+            }
+        } catch (Exception ex) {
             throw new DistrictNotFound("Bairro não cadastrado!");
         }
     }
