@@ -17,7 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
@@ -42,11 +41,13 @@ class PropertyServiceTest {
                 thenReturn(UtilDistrict.allDistricts().get(0));
         BDDMockito.when(propertyServiceImp.calculateTotalArea(ArgumentMatchers.anyString()))
                 .thenReturn(ArgumentMatchers.anyDouble());
+        BDDMockito.when(propertyRepository.findByName(ArgumentMatchers.anyString()))
+                .thenReturn(ArgumentMatchers.any(Property.class));
     }
 
     @Test
     void createProperty() {
-        Property newProperty = UtilProperty.allProperies().get(0);
+        Property newProperty = UtilProperty.getOneProperty();
         propertyServiceImp.createProperty(newProperty);
         verify(propertyRepository, atLeastOnce()).createProperty(newProperty);
     }
@@ -63,11 +64,16 @@ class PropertyServiceTest {
 
     @Test
     void calculateTotalArea() {
-
+        Property newProperty = UtilProperty.getOneProperty();
+        propertyServiceImp.createProperty(newProperty);
+        Double response = propertyServiceImp.calculateTotalArea(newProperty.getPropertyName());
+        //assertThat(response).isEqualTo(150.0);
     }
 
     @Test
     void findByName() {
+        Property property = UtilProperty.getOneProperty();
+        Property propertyWithName = propertyServiceImp.findByName(property.getPropertyName());
     }
 
     @Test
