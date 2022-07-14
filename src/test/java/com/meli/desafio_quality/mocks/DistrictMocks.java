@@ -29,4 +29,11 @@ public class DistrictMocks {
                     throw new Exception("teste");
                 });
     }
+
+    public static void mock_notFoundGetDistrictByName(DistrictRepository repository) {
+        BDDMockito.when(repository.getDistrictByName(ArgumentMatchers.anyString()))
+                .thenAnswer(invocationOnMock -> {
+                    throw new Exception("teste");
+                });
+    }
 }
