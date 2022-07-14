@@ -38,18 +38,30 @@ public class PropertyServiceImp implements PropertyService {
         Property property = findByName(name);
         BigDecimal valueDistrict = property.getDistrict().getValueDistrictM2();
         double totalArea = calculateTotalArea(name);
-        return  valueDistrict.doubleValue() * totalArea;
+        return valueDistrict.doubleValue() * totalArea;
     }
 
     @Override
     public Room biggestRoom(String name) {
         Property property = findByName(name);
-        return property.getRoomList().stream().max(Comparator.comparing(r -> r.getLength() * r.getWidth())).orElseThrow();
+        return property.getRoomList().stream()
+                .max(Comparator.comparing(r -> r.getLength() * r.getWidth())).orElseThrow();
     }
 
 
     @Override
-    public List<Room> getAreaByRoom(String name) {
-        return null;
+    public List<Room> getAreaByRooms(String name) {
+        Property property = findByName(name);
+        property.getRoomList()
+                .forEach(room -> room.setTotalArea(room.getLength() * room.getWidth()));
+        return property.getRoomList();
+
+        /*
+        //Jeito de raiz um foreach
+        for (Room room : rooms) {
+            room.setTotalArea(room.getLength() * room.getWidth());
+        }
+        return property.getRoomList();
+         */
     }
 }

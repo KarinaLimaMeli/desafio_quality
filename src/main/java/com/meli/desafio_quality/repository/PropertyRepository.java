@@ -16,8 +16,7 @@ public class PropertyRepository {
     }
 
     public Property findByName(String name) {
-        Property x = properties.stream().filter(property -> property.getPropertyName()
+        return properties.stream().filter(property -> property.getPropertyName()
                 .equals(name)).collect(Collectors.toList()).get(0);
-        return x;
     }
 }

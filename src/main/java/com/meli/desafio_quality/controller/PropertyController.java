@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/property")
@@ -34,26 +35,17 @@ public class PropertyController {
     }
 
     @GetMapping("/totalprice/{name}")
-    public ResponseEntity<Double> calculateTotalPrice(@PathVariable String name){
+    public ResponseEntity<Double> calculateTotalPrice(@PathVariable String name) {
         return ResponseEntity.ok().body(propertyService.calculateTotalPrice(name));
     }
 
     @GetMapping("/biggestroom/{name}")
-    public ResponseEntity<Room> biggestRoom(@PathVariable String name){
+    public ResponseEntity<Room> biggestRoom(@PathVariable String name) {
         return ResponseEntity.ok().body(propertyService.biggestRoom(name));
     }
 
-
-    /*
-    requisito 3
-    - Determine qual é o maior cômodo.
-
-    @GetMapping("/{name}/biggestRoom")
-    requisito 4
-    - Determinar a quantidade de metros quadrados que tem cada
-cômodo de uma propriedade.
-
-    @GetMapping("/name}/m2byroom")
-     */
-
+    @GetMapping("/m2byrooms/{name}")
+    public ResponseEntity<List<Room>> getAreaByRooms(@PathVariable String name) {
+        return ResponseEntity.ok().body(propertyService.getAreaByRooms(name));
+    }
 }

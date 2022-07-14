@@ -15,11 +15,8 @@ public interface PropertyService {
 
     double calculateTotalPrice(String name);
 
-    // req 3
     Room biggestRoom(String name);
 
-    // req 4
-
-    List<Room> getAreaByRoom(String name);
+    List<Room> getAreaByRooms(String name);
 
 }
