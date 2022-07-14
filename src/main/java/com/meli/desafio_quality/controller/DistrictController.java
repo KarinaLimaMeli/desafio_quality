@@ -15,13 +15,14 @@ public class DistrictController {
 
     @Autowired
     private DistrictService districtService;
-
+//  ->  /district
     @PostMapping()
     public ResponseEntity<Void> createDistrict(@RequestBody @Valid District district) {
         this.districtService.createDistrict(district);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
+//  ->  /district/{name}
     @GetMapping("/{name}")
     public ResponseEntity<District> getDistrictByName(@PathVariable String districtName) {
         return ResponseEntity.ok(districtService.getDistrictByName(districtName));
