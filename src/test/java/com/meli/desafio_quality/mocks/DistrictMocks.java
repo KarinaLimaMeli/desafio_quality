@@ -36,4 +36,8 @@ public class DistrictMocks {
                     throw new Exception("teste");
                 });
     }
+
+    public static void mock_createDistrict(District district, DistrictService service) {
+        BDDMockito.doNothing().when(service).createDistrict(ArgumentMatchers.any(District.class));
+    }
 }
