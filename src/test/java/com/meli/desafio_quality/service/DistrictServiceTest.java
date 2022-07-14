@@ -26,7 +26,7 @@ import static org.mockito.Mockito.verify;
 public class DistrictServiceTest {
 
     @InjectMocks
-    DistrictService service;
+    DistrictServiceImp service;
 
     @Mock
     DistrictRepository districtRepository;
