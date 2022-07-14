@@ -65,5 +65,20 @@ class DistrictControllerTest {
 
     }
 
+    @Test
+    void NotFoundDistrictByName() {
+        String name = "nome que não existe no BD";
+        DistrictMocks.mock_notFoundGetDistrictByName(districtService);
+        ResponseEntity<District> response = null;
+        Exception testeException = null;
+        try {
+            response = controller.getDistrictByName(name);
+        } catch (Exception exception) {
+            testeException = exception;
+        }
+        verify(districtService, atLeastOnce()).getDistrictByName(name);
+        Assertions.assertNull(response);
+        assertThat(testeException.getMessage().equals("teste"));
+    }
 
 }
