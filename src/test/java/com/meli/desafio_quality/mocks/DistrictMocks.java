@@ -40,4 +40,8 @@ public class DistrictMocks {
     public static void mock_createDistrict(District district, DistrictService service) {
         BDDMockito.doNothing().when(service).createDistrict(ArgumentMatchers.any(District.class));
     }
+
+    public static void mock_districtAlreadyExist(District district, DistrictService service) {
+        BDDMockito.doThrow(new RuntimeException("teste")).when(service).createDistrict(ArgumentMatchers.any(District.class));
+    }
 }
