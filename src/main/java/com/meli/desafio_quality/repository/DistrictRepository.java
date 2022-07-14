@@ -19,9 +19,9 @@ public class DistrictRepository {
     public DistrictRepository() { this.allDistricts = new ArrayList<>(); }
 
     public void createDistrict(District district) {
-        Optional<District> teste = getAllDistricts().stream().filter(eachDistrict -> eachDistrict.getDistrictName()
+        Optional<District> districtOptional = getAllDistricts().stream().filter(eachDistrict -> eachDistrict.getDistrictName()
                 .equalsIgnoreCase(district.getDistrictName())).findFirst();
-        if(teste.isEmpty()) { allDistricts.add(district); }
+        if(districtOptional.isEmpty()) { allDistricts.add(district); }
         else { throw new DistrictAlreadyExist("Bairro já cadastrado"); }
     }
 
