@@ -3,6 +3,7 @@ package com.meli.desafio_quality.controller;
 import com.meli.desafio_quality.model.Property;
 import com.meli.desafio_quality.service.PropertyService;
 import com.meli.desafio_quality.util.UtilProperty;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,7 +29,8 @@ class PropertyControllerTest {
     PropertyService propertyService;
 
     @Test
-    void createProperty() {
+    @DisplayName("Valida se retorna o status 201 quando são informados os dados corretos de uma propriedade.")
+    void createProperty_returnHttpCreated_whenNewProperty() {
         Property property = UtilProperty.allProperies().get(0);
 
         ResponseEntity<Void> response = controller.createProperty(property);
