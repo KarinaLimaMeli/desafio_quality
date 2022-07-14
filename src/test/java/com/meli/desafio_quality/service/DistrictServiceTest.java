@@ -57,6 +57,6 @@ public class DistrictServiceTest {
         }
         verify(districtRepository, atLeastOnce()).getDistrictByName(name);
         Assertions.assertNull(response);
-        assertThat(testeException.getMessage().equals("teste"));
+        assertThat(testeException.getMessage()).isEqualTo("teste");
     }
 }

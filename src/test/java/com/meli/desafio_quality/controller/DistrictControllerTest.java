@@ -80,7 +80,7 @@ class DistrictControllerTest {
         }
         verify(districtService, atLeastOnce()).getDistrictByName(name);
         Assertions.assertNull(response);
-        assertThat(testeException.getMessage().equals("teste"));
+        assertThat(testeException.getMessage()).isEqualTo("teste");
     }
 
 }
