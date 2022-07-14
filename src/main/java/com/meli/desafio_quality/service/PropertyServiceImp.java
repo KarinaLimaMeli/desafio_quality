@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -42,8 +43,10 @@ public class PropertyServiceImp implements PropertyService {
 
     @Override
     public Room biggestRoom(String name) {
-        return null;
+        Property property = findByName(name);
+        return property.getRoomList().stream().max(Comparator.comparing(r -> r.getLength() * r.getWidth())).orElseThrow();
     }
+
 
     @Override
     public List<Room> getAreaByRoom(String name) {

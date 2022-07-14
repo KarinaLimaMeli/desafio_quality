@@ -1,6 +1,7 @@
 package com.meli.desafio_quality.controller;
 
 import com.meli.desafio_quality.model.Property;
+import com.meli.desafio_quality.model.Room;
 import com.meli.desafio_quality.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,16 +29,19 @@ public class PropertyController {
     }
 
     @GetMapping("/totalm2/{name}")
-    public double calculateTotalArea(@PathVariable String name) {
-        return propertyService.calculateTotalArea(name);
+    public ResponseEntity<Double> calculateTotalArea(@PathVariable String name) {
+        return ResponseEntity.ok().body(propertyService.calculateTotalArea(name));
     }
 
     @GetMapping("/totalprice/{name}")
-    public double calculateTotalPrice(@PathVariable String name){
-        return propertyService.calculateTotalPrice(name);
+    public ResponseEntity<Double> calculateTotalPrice(@PathVariable String name){
+        return ResponseEntity.ok().body(propertyService.calculateTotalPrice(name));
     }
 
-
+    @GetMapping("/biggestroom/{name}")
+    public ResponseEntity<Room> biggestRoom(@PathVariable String name){
+        return ResponseEntity.ok().body(propertyService.biggestRoom(name));
+    }
 
 
     /*
