@@ -45,8 +45,8 @@ class PropertyControllerTest {
         BDDMockito.when(propertyService.getAreaByRooms(ArgumentMatchers.anyString()))
             .thenReturn(UtilProperty.allRooms());
 
-//        BDDMockito.when(propertyService.findByName(ArgumentMatchers.anyString()))
-//            .thenReturn(UtilProperty.allProperies().get(0));
+        BDDMockito.when(propertyService.findByName(ArgumentMatchers.anyString()))
+            .thenReturn(UtilProperty.allProperies().get(0));
     }
 
     @Test
@@ -79,6 +79,15 @@ class PropertyControllerTest {
 
     @Test
     void findByName() {
+        Property property = UtilProperty.allProperies().get(0);
+        controller.createProperty(property);
+        String name = property.getPropertyName();
+
+        ResponseEntity<Property> response = controller.findByName(name);
+
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().getPropertyName()).isEqualTo(name);
+        assertThat(response.getBody().getRoomList().get(0).getTotalArea()).isEqualTo(50.0);
     }
 
     @Test
