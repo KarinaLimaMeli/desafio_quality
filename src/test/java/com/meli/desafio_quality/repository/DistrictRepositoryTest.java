@@ -2,21 +2,13 @@ package com.meli.desafio_quality.repository;
 
 
 import com.meli.desafio_quality.exception.DistrictAlreadyExist;
-import com.meli.desafio_quality.mocks.DistrictMocks;
 import com.meli.desafio_quality.model.District;
-import com.meli.desafio_quality.util.Util;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpStatus;
 
-import javax.swing.text.html.Option;
-import java.util.Optional;
-
-import static com.meli.desafio_quality.util.Util.allDistricts;
+import static com.meli.desafio_quality.util.UtilDistrict.allDistricts;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.verify;
 
 public class DistrictRepositoryTest {
 
@@ -29,7 +21,7 @@ public class DistrictRepositoryTest {
 
     @Test
     void createDistrict_whenNewDistrict() {
-        District newDistrict = Util.allDistricts().get(0);
+        District newDistrict = allDistricts().get(0);
 
         District createdDistrict = districtRepository.createDistrict(newDistrict);
 
@@ -40,14 +32,13 @@ public class DistrictRepositoryTest {
 
     @Test
     void createDistrict_throwException_whenDistrictAlreadyExists() {
-        District district = Util.allDistricts().get(0);
+        District district = allDistricts().get(0);
         districtRepository.createDistrict(district);
         DistrictAlreadyExist exception = Assertions.assertThrows(DistrictAlreadyExist.class, () -> {
             District createdDistrict = districtRepository.createDistrict(district);
         });
 
         assertThat(exception.getMessage()).isEqualTo("Bairro já cadastrado");
-
     }
 
     @Test

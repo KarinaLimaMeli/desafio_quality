@@ -13,7 +13,7 @@ import org.mockito.quality.Strictness;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static com.meli.desafio_quality.util.Util.allDistricts;
+import static com.meli.desafio_quality.util.UtilDistrict.allDistricts;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;

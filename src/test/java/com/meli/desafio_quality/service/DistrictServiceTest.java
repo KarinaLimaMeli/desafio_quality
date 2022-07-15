@@ -3,7 +3,6 @@ package com.meli.desafio_quality.service;
 import com.meli.desafio_quality.mocks.DistrictMocks;
 import com.meli.desafio_quality.model.District;
 import com.meli.desafio_quality.repository.DistrictRepository;
-import com.meli.desafio_quality.util.Util;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +14,7 @@ import org.mockito.quality.Strictness;
 
 import java.math.BigDecimal;
 
-import static com.meli.desafio_quality.util.Util.allDistricts;
+import static com.meli.desafio_quality.util.UtilDistrict.allDistricts;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -71,7 +70,7 @@ public class DistrictServiceTest {
 
     @Test
     void districtAlreadyExist () {
-        District newDistrict = Util.allDistricts().get(0);
+        District newDistrict = allDistricts().get(0);
         DistrictMocks.mock_districtAlreadyExist(districtRepository);
         Exception testException = null;
         District response = null;
@@ -84,21 +83,4 @@ public class DistrictServiceTest {
         Assertions.assertNull(response);
         assertThat(testException.getMessage()).isEqualTo("teste");
     }
-
-//     Talvez queiram desenvolver ele depois, senao deletar
-//    @Test
-//    void districtAlreadyExist (){
-//        List<District> allDistrict = allDistricts();
-//        District newDistrict = new District("Bairro", new BigDecimal(2000));
-//        allDistrict.add(newDistrict);
-//        DistrictMocks.mock_createDistrict(districtRepository);
-//        Exception testException = null;
-//        try {
-//            service.createDistrict(newDistrict);
-//        } catch (Exception exception){
-//            testException = exception;
-//        }
-//        verify(districtRepository,atLeastOnce()).createDistrict(newDistrict);
-//
-//    }
 }
