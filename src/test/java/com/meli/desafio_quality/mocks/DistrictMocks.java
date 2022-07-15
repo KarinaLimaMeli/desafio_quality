@@ -38,8 +38,9 @@ public class DistrictMocks {
                 });
     }
 
-    public static void mock_createDistrict(DistrictService service) {
-        BDDMockito.doNothing().when(service).createDistrict(ArgumentMatchers.any(District.class));
+    public static void mock_createDistrict(DistrictService service, District district) {
+        BDDMockito.when(service.createDistrict(ArgumentMatchers.any(District.class))).
+                thenReturn(district);
     }
     public static void mock_createDistrict(DistrictRepository repository, District createDistrict, List<District> bd){
         Optional<District> foundDistrict = bd.stream().filter(district -> district.getDistrictName()
@@ -52,7 +53,10 @@ public class DistrictMocks {
     }
 
     public static void mock_districtAlreadyExist(DistrictService service) {
-        BDDMockito.doThrow(new RuntimeException("teste")).when(service).createDistrict(ArgumentMatchers.any(District.class));
+        BDDMockito.when(service.createDistrict(ArgumentMatchers.any(District.class)))
+                .thenAnswer(invocationOnMock -> {
+                    throw new Exception("teste");
+                });
     }
 
 }
