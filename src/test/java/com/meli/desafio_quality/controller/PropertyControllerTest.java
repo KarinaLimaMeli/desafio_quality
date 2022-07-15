@@ -47,6 +47,9 @@ class PropertyControllerTest {
 
         BDDMockito.when(propertyService.findByName(ArgumentMatchers.anyString()))
             .thenReturn(UtilProperty.allProperies().get(0));
+
+        BDDMockito.when(propertyService.calculateTotalPrice(ArgumentMatchers.anyString()))
+            .thenReturn(100000.0);
     }
 
     @Test
@@ -93,13 +96,10 @@ class PropertyControllerTest {
     @Test
     @DisplayName("Valida se retorna o valor correto do total da área da propriedade.")
     void calculateTotalArea() {
-        // CRIA O PROPRIEDADE
         Property property = UtilProperty.allProperies().get(0);
-        // log.info(property);
         controller.createProperty(property);
 
         String name = property.getPropertyName();
-        log.info(name);
         ResponseEntity<Double> response = controller.calculateTotalArea(name);
 
         assertThat(response.getBody()).isPositive();
@@ -108,6 +108,15 @@ class PropertyControllerTest {
 
     @Test
     void calculateTotalPrice() {
+        Property property = UtilProperty.allProperies().get(0);
+        controller.createProperty(property);
+
+        String name = property.getPropertyName();
+
+        ResponseEntity<Double> response = controller.calculateTotalPrice(name);
+
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody()).isEqualTo(100000.0);
     }
 
     @Test
