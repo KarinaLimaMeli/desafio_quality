@@ -2,7 +2,6 @@ package com.meli.desafio_quality.service;
 
 import com.meli.desafio_quality.exception.DistrictNotFound;
 import com.meli.desafio_quality.exception.PropertyNameNotFound;
-import com.meli.desafio_quality.model.District;
 import com.meli.desafio_quality.model.Property;
 import com.meli.desafio_quality.model.Room;
 import com.meli.desafio_quality.repository.DistrictRepository;
@@ -20,8 +19,7 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -41,10 +39,8 @@ class PropertyServiceTest {
     @BeforeEach
     public void setup() {
         BDDMockito.doNothing().when(propertyRepository).createProperty(ArgumentMatchers.any(Property.class));
-
         BDDMockito.when(districtRepository.getDistrictByName(ArgumentMatchers.anyString()))
             .thenReturn(UtilDistrict.allDistricts().get(0));
-
         BDDMockito.when(propertyRepository.findByName(ArgumentMatchers.anyString()))
                 .thenReturn(UtilProperty.allProperies().get(0));
     }
@@ -54,7 +50,6 @@ class PropertyServiceTest {
     void createProperty() {
         Property newProperty = UtilProperty.allProperies().get(0);
         service.createProperty(newProperty);
-
         verify(propertyRepository, Mockito.atLeastOnce()).createProperty(newProperty);
     }
 

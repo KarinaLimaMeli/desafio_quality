@@ -12,6 +12,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
+import java.math.BigDecimal;
+
 import static com.meli.desafio_quality.util.UtilDistrict.allDistricts;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -54,17 +56,31 @@ public class DistrictServiceTest {
         Assertions.assertNull(response);
         assertThat(testException.getMessage()).isEqualTo("teste");
     }
+
     @Test
     void createDistrict (){
+        District newDistrict = new District("Bairro", new BigDecimal(2000));
+
+        DistrictMocks.mock_createDistrict(districtRepository, newDistrict);
+        District district = service.createDistrict(newDistrict);
+        verify(districtRepository, atLeastOnce()).createDistrict(newDistrict);
+        Assertions.assertEquals(district.getDistrictName(), newDistrict.getDistrictName());
+        Assertions.assertEquals(district.getValueDistrictM2(), newDistrict.getValueDistrictM2());
+    }
+
+    @Test
+    void districtAlreadyExist () {
         District newDistrict = allDistricts().get(0);
-        DistrictMocks.mock_createDistrict(districtRepository);
+        DistrictMocks.mock_districtAlreadyExist(districtRepository);
         Exception testException = null;
+        District response = null;
         try {
-            service.createDistrict(newDistrict);
-        } catch (Exception exception){
+            response = service.createDistrict(newDistrict);
+        } catch (Exception exception) {
             testException = exception;
         }
-        verify(districtRepository,atLeastOnce()).createDistrict(newDistrict);
-
+        verify(districtRepository, atLeastOnce()).createDistrict(newDistrict);
+        Assertions.assertNull(response);
+        assertThat(testException.getMessage()).isEqualTo("teste");
     }
 }

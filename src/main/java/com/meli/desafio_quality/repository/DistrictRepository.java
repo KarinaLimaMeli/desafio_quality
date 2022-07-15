@@ -8,8 +8,6 @@ import lombok.Data;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Repository
 @Data
@@ -18,15 +16,12 @@ public class DistrictRepository {
 
     public DistrictRepository() { this.allDistricts = new ArrayList<>(); }
 
-    public void createDistrict(District district) {
-        Optional<District> districtOptional = getAllDistricts().stream().filter(eachDistrict -> eachDistrict.getDistrictName()
-                .equalsIgnoreCase(district.getDistrictName())).findFirst();
-        if(districtOptional.isEmpty()) { allDistricts.add(district); }
-        else { throw new DistrictAlreadyExist("Bairro já cadastrado"); }
-    }
-
-    public ArrayList<District> getAllDistricts() {
-        return this.allDistricts;
+    public District createDistrict(District district) {
+        if(getAllDistricts().contains(district)) { throw new DistrictAlreadyExist("Bairro já cadastrado"); }
+        else {
+            allDistricts.add(district);
+            return district;
+        }
     }
 
     public District getDistrictByName(String name) {

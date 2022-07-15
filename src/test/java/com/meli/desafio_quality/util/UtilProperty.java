@@ -4,6 +4,7 @@ import com.meli.desafio_quality.model.Property;
 import com.meli.desafio_quality.model.Room;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UtilProperty {
 
@@ -13,7 +14,6 @@ public class UtilProperty {
 
     public static ArrayList<Property> allProperies() {
         ArrayList<Property> properties = new ArrayList<>();
-
         properties.add(new Property(
             "Apartamento01",
             UtilDistrict.allDistricts().get(0),
