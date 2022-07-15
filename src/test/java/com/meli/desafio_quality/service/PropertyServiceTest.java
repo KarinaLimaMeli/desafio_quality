@@ -1,6 +1,7 @@
 package com.meli.desafio_quality.service;
 
 import com.meli.desafio_quality.exception.DistrictNotFound;
+import com.meli.desafio_quality.exception.PropertyNameNotFound;
 import com.meli.desafio_quality.model.District;
 import com.meli.desafio_quality.model.Property;
 import com.meli.desafio_quality.repository.DistrictRepository;
@@ -63,6 +64,7 @@ class PropertyServiceTest {
         }
     }
 
+
     @Test
     @DisplayName("Valida se retorna o valor total da área")
     void calculateTotalArea() {
@@ -76,11 +78,25 @@ class PropertyServiceTest {
     }
 
     @Test
-    void findByName() {
+    void notFindByName() {
+        BDDMockito.when(service.findByName(ArgumentMatchers.anyString())).thenAnswer(invocationOnMock -> {
+            throw new Exception("teste");
+        });
+        try{
+            Property property = service.findByName("casa");
+            System.out.println(property);
+        }catch (PropertyNameNotFound propertyNameNotFound) {
+            assertEquals(propertyNameNotFound.getMessage(), "Este imóvel não foi encontrado!");
+        }
     }
 
     @Test
     void calculateTotalPrice() {
+        Property newProperty = UtilProperty.allProperies().get(0);
+        service.createProperty(newProperty);
+        double totalPrice = service.calculateTotalPrice(newProperty.getPropertyName());
+
+        assertEquals(totalPrice, 300000.0);
     }
 
     @Test
