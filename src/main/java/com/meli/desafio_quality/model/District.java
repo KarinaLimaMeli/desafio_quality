@@ -20,7 +20,7 @@ public class District {
     private String districtName;
     @NotNull
     @DecimalMin(value = "0.0", inclusive = false, message = "o valor deve ser positivo")
-    @Digits(integer = 6, fraction = 7, message = "")
+    @Digits(integer = 6, fraction = 7, message = "Valor inválido")
     private BigDecimal valueDistrictM2;
 
 }

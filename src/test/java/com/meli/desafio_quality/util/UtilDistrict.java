@@ -5,7 +5,7 @@ import com.meli.desafio_quality.model.District;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-public class Util {
+public class UtilDistrict {
     /**
      * Este método retorna um novo arrayList de District.
      * @return allDistricts

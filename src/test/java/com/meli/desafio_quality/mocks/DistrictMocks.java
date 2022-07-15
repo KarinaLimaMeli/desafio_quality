@@ -2,20 +2,20 @@ package com.meli.desafio_quality.mocks;
 import com.meli.desafio_quality.repository.DistrictRepository;
 import com.meli.desafio_quality.service.DistrictService;
 import com.meli.desafio_quality.model.District;
-import com.meli.desafio_quality.util.Util;
+import com.meli.desafio_quality.util.UtilDistrict;
 import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 
 public class DistrictMocks {
     public static void mock_getDistrictByName(String name, DistrictService service) {
-        District foundDistrict = Util.allDistricts().stream().filter(
+        District foundDistrict = UtilDistrict.allDistricts().stream().filter(
                 district -> district.getDistrictName().equals(name)).findFirst().get();
         BDDMockito.when(service.getDistrictByName(ArgumentMatchers.anyString()))
                 .thenReturn(foundDistrict);
     }
 
     public static void mock_getDistrictByName(String name, DistrictRepository repository) {
-        District foundDistrict = Util.allDistricts().stream().filter(
+        District foundDistrict = UtilDistrict.allDistricts().stream().filter(
                 district -> district.getDistrictName().equals(name)).findFirst().get();
         BDDMockito.when(repository.getDistrictByName(ArgumentMatchers.anyString()))
                 .thenReturn(foundDistrict);
