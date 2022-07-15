@@ -73,6 +73,7 @@ class PropertyControllerTest {
     }
 
     @Test
+    @DisplayName("Valida se retorna o valor correto do total da área da propriedade.")
     void calculateTotalArea() {
         // CRIA O PROPRIEDADE
         Property property = UtilProperty.allProperies().get(0);
