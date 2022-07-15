@@ -176,7 +176,7 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "getDistrictByName",
 					"request": {
 						"method": "GET",
 						"header": [],
