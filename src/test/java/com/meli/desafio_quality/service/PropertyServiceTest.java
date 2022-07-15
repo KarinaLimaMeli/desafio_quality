@@ -4,6 +4,7 @@ import com.meli.desafio_quality.exception.DistrictNotFound;
 import com.meli.desafio_quality.exception.PropertyNameNotFound;
 import com.meli.desafio_quality.model.District;
 import com.meli.desafio_quality.model.Property;
+import com.meli.desafio_quality.model.Room;
 import com.meli.desafio_quality.repository.DistrictRepository;
 import com.meli.desafio_quality.repository.PropertyRepository;
 import com.meli.desafio_quality.util.UtilDistrict;
@@ -44,6 +45,7 @@ class PropertyServiceTest {
 
         BDDMockito.when(propertyRepository.findByName(ArgumentMatchers.anyString()))
                 .thenReturn(UtilProperty.allProperies().get(0));
+
     }
 
     @Test
@@ -101,9 +103,15 @@ class PropertyServiceTest {
 
     @Test
     void biggestRoom() {
+        Property newProperty = UtilProperty.allProperies().get(0);
+        service.createProperty(newProperty);
+        Room room = service.biggestRoom(newProperty.getPropertyName());
+
+        assertEquals(room.getRoomName(), "Sala");
     }
 
     @Test
     void getAreaByRooms() {
+
     }
 }

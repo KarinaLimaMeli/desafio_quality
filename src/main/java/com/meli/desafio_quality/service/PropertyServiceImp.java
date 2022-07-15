@@ -73,4 +73,6 @@ public class PropertyServiceImp implements PropertyService {
         return property.getRoomList();
 
     }
+
+
 }
