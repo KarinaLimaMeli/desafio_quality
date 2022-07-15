@@ -19,6 +19,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 
@@ -112,6 +114,11 @@ class PropertyServiceTest {
 
     @Test
     void getAreaByRooms() {
+        Property newProperty = UtilProperty.allProperies().get(0);
+        service.createProperty(newProperty);
+        List<Room> room = service.getAreaByRooms(newProperty.getPropertyName());
 
+        assertEquals(room.get(1).getRoomName(), "Cozinha");
+        assertEquals(room.get(2).getRoomName(), "Quarto");
     }
 }
