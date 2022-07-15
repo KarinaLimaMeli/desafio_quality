@@ -1,6 +1,7 @@
 package com.meli.desafio_quality.controller;
 
 import com.meli.desafio_quality.model.Property;
+import com.meli.desafio_quality.model.Room;
 import com.meli.desafio_quality.service.PropertyService;
 import com.meli.desafio_quality.util.UtilProperty;
 import lombok.extern.log4j.Log4j2;
@@ -36,6 +37,8 @@ class PropertyControllerTest {
         BDDMockito.when(propertyService.calculateTotalArea(ArgumentMatchers.anyString()))
             .thenReturn(150.0);
 
+        BDDMockito.when(propertyService.biggestRoom(ArgumentMatchers.anyString()))
+            .thenReturn(UtilProperty.bigRoom());
 //        BDDMockito.when(propertyService.findByName(ArgumentMatchers.anyString()))
 //            .thenReturn(UtilProperty.allProperies().get(0));
     }
@@ -78,7 +81,7 @@ class PropertyControllerTest {
         // CRIA O PROPRIEDADE
         Property property = UtilProperty.allProperies().get(0);
         // log.info(property);
-        ResponseEntity<Void> result = controller.createProperty(property);
+        controller.createProperty(property);
 
         String name = property.getPropertyName();
         log.info(name);
@@ -93,7 +96,17 @@ class PropertyControllerTest {
     }
 
     @Test
+    @DisplayName("Valida se retorna o maior cômodo.")
     void biggestRoom() {
+        Property property = UtilProperty.allProperies().get(0);
+        controller.createProperty(property);
+
+        String name = property.getPropertyName();
+
+        ResponseEntity<Room> response = controller.biggestRoom(name);
+
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().getRoomName()).isEqualTo("Quarto");
     }
 
     @Test

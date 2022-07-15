@@ -13,8 +13,11 @@ public class UtilProperty {
 
     public static ArrayList<Property> allProperies() {
         ArrayList<Property> properties = new ArrayList<>();
-        properties.add(new Property("Apartamento01",
-                UtilDistrict.allDistricts().get(0), allRooms()));
+
+        properties.add(new Property(
+            "Apartamento01",
+            UtilDistrict.allDistricts().get(0),
+            allRooms()));
         return properties;
     }
 
@@ -26,4 +29,7 @@ public class UtilProperty {
         return rooms;
     }
 
+    public static Room bigRoom() {
+        return new Room("Quarto", 10.0, 5.0, 0.0);
+    }
 }
