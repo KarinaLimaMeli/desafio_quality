@@ -1,0 +1,201 @@
+{
+	"info": {
+		"_postman_id": "4d8297ed-f046-4362-93c6-daf4f706b228",
+		"name": "Desafio Quality",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21755847"
+	},
+	"item": [
+		{
+			"name": "Property",
+			"item": [
+				{
+					"name": "createProperty",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"propertyName\": \"PropertyName\",\n\t\"district\": {\n\t\t\"districtName\": \"districtName\",\n\t\t\"valueDistrictM2\": 2.0\n\t},\n\t\"roomList\": [\n\t\t{\n\t\t\t\"roomName\": \"Room1\",\n\t\t\t\"width\": 2,\n\t\t\t\"length\": 2\n\t\t},\n\t\t{\n\t\t\t\"roomName\": \"Room2\",\n\t\t\t\"width\": 5,\n\t\t\t\"length\": 5\n\t\t}\n\t]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/property/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"property",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/property/PropertyName",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"property",
+								"PropertyName"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "calculateTotalArea",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/property/totalm2/PropertyName",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"property",
+								"totalm2",
+								"PropertyName"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "calculateTotalPrice",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/property/totalprice/PropertyName",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"property",
+								"totalprice",
+								"PropertyName"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "biggestRoom",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/property/biggestroom/PropertyName",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"property",
+								"biggestroom",
+								"PropertyName"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAreaByRooms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/property/m2byrooms/PropertyName",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"property",
+								"m2byrooms",
+								"PropertyName"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "District",
+			"item": [
+				{
+					"name": "createDistrict",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"districtName\": \"districtName\",\n\t\"valueDistrictM2\": 10.0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/district",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"district"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/district/districtName",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"district",
+								"districtName"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
