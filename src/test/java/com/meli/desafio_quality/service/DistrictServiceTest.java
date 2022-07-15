@@ -3,6 +3,7 @@ package com.meli.desafio_quality.service;
 import com.meli.desafio_quality.mocks.DistrictMocks;
 import com.meli.desafio_quality.model.District;
 import com.meli.desafio_quality.repository.DistrictRepository;
+import com.meli.desafio_quality.util.Util;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,12 +12,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Optional;
 
 import static com.meli.desafio_quality.util.Util.allDistricts;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -60,27 +57,48 @@ public class DistrictServiceTest {
         Assertions.assertNull(response);
         assertThat(testException.getMessage()).isEqualTo("teste");
     }
+
     @Test
     void createDistrict (){
         District newDistrict = new District("Bairro", new BigDecimal(2000));
-        DistrictMocks.mock_createDistrict(districtRepository, newDistrict, allDistricts());
-        Exception testException = null;
-        verify(districtRepository, atLeastOnce()).createDistrict(newDistrict);
 
+        DistrictMocks.mock_createDistrict(districtRepository, newDistrict);
+        District district = service.createDistrict(newDistrict);
+        verify(districtRepository, atLeastOnce()).createDistrict(newDistrict);
+        Assertions.assertEquals(district.getDistrictName(), newDistrict.getDistrictName());
+        Assertions.assertEquals(district.getValueDistrictM2(), newDistrict.getValueDistrictM2());
     }
+
     @Test
-    void districtAlreadyExist (){
-        List<District> allDistrict = allDistricts();
-        District newDistrict = new District("Bairro", new BigDecimal(2000));
-        allDistrict.add(newDistrict);
-        DistrictMocks.mock_createDistrict(districtRepository, newDistrict, allDistrict);
+    void districtAlreadyExist () {
+        District newDistrict = Util.allDistricts().get(0);
+        DistrictMocks.mock_districtAlreadyExist(districtRepository);
         Exception testException = null;
+        District response = null;
         try {
-            service.createDistrict(newDistrict);
-        } catch (Exception exception){
+            response = service.createDistrict(newDistrict);
+        } catch (Exception exception) {
             testException = exception;
         }
-        verify(districtRepository,atLeastOnce()).createDistrict(newDistrict);
-
+        verify(districtRepository, atLeastOnce()).createDistrict(newDistrict);
+        Assertions.assertNull(response);
+        assertThat(testException.getMessage()).isEqualTo("teste");
     }
+
+//     Talvez queiram desenvolver ele depois, senao deletar
+//    @Test
+//    void districtAlreadyExist (){
+//        List<District> allDistrict = allDistricts();
+//        District newDistrict = new District("Bairro", new BigDecimal(2000));
+//        allDistrict.add(newDistrict);
+//        DistrictMocks.mock_createDistrict(districtRepository);
+//        Exception testException = null;
+//        try {
+//            service.createDistrict(newDistrict);
+//        } catch (Exception exception){
+//            testException = exception;
+//        }
+//        verify(districtRepository,atLeastOnce()).createDistrict(newDistrict);
+//
+//    }
 }
