@@ -12,8 +12,8 @@ public class DistrictServiceImp implements DistrictService {
     DistrictRepository districtRepository;
 
     @Override
-    public void createDistrict(District district) {
-        districtRepository.createDistrict(district);
+    public District createDistrict(District district) {
+        return districtRepository.createDistrict(district);
     }
 
     @Override
