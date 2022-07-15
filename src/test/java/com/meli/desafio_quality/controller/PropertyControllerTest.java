@@ -66,21 +66,7 @@ class PropertyControllerTest {
     }
 
     @Test
-    @DisplayName("Valida se retorna o status 400 quando não são informados os dados corretos de uma propriedade.")
-    void createProperty_returnHttpCBadRequest_whenNewPropertyWithoutDistrict() {
-        // Property property = UtilProperty.propertyDistrictNull();
-        Property property = new Property();
-        property.setPropertyName("propertyName");
-        property.setRoomList(UtilProperty.allRooms());
-        ResponseEntity<Void> response = controller.createProperty(property);
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
-        assertThat(response.getBody()).isNull();
-
-        Mockito.verify(propertyService, Mockito.atLeastOnce()).createProperty(property);
-    }
-
-    @Test
+    @DisplayName("Valida se retorna uma propriedade com todos os seus dados.")
     void findByName() {
         Property property = UtilProperty.allProperies().get(0);
         controller.createProperty(property);
@@ -107,6 +93,7 @@ class PropertyControllerTest {
     }
 
     @Test
+    @DisplayName("Valida se retorna o valor total da propriedade.")
     void calculateTotalPrice() {
         Property property = UtilProperty.allProperies().get(0);
         controller.createProperty(property);
@@ -134,6 +121,7 @@ class PropertyControllerTest {
     }
 
     @Test
+    @DisplayName("Valida se retorna os cômodos por área.")
     void getAreaByRooms() {
         Property property = UtilProperty.allProperies().get(0);
         controller.createProperty(property);
