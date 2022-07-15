@@ -47,10 +47,10 @@ class PropertyServiceTest {
 
         BDDMockito.when(propertyRepository.findByName(ArgumentMatchers.anyString()))
                 .thenReturn(UtilProperty.allProperies().get(0));
-
     }
 
     @Test
+    @DisplayName("Valida o método creatProperty se for passado um distric válido")
     void createProperty() {
         Property newProperty = UtilProperty.allProperies().get(0);
         service.createProperty(newProperty);
@@ -59,6 +59,7 @@ class PropertyServiceTest {
     }
 
     @Test
+    @DisplayName("Valida se retorna uma exception caso o nome passado como district não seja válido")
     void notCreateProperty() {
         Property newProperty = UtilProperty.propertyDistrictNull();
         try {
@@ -68,7 +69,6 @@ class PropertyServiceTest {
         }
     }
 
-
     @Test
     @DisplayName("Valida se retorna o valor total da área")
     void calculateTotalArea() {
@@ -77,11 +77,11 @@ class PropertyServiceTest {
         String name = newProperty.getPropertyName();
         double result = service.calculateTotalArea(name);
 
-        assertEquals(result, 150.0);
-
+        assertEquals(result, 160.0);
     }
 
     @Test
+    @DisplayName("Valida se retorna uma exception quando o nome não é encontrado")
     void notFindByName() {
         BDDMockito.when(service.findByName(ArgumentMatchers.anyString())).thenAnswer(invocationOnMock -> {
             throw new Exception("teste");
@@ -95,30 +95,33 @@ class PropertyServiceTest {
     }
 
     @Test
+    @DisplayName("Valida o retorno esperado no total price")
     void calculateTotalPrice() {
         Property newProperty = UtilProperty.allProperies().get(0);
         service.createProperty(newProperty);
         double totalPrice = service.calculateTotalPrice(newProperty.getPropertyName());
-
-        assertEquals(totalPrice, 300000.0);
+        assertEquals(totalPrice, 320000.0);
     }
 
     @Test
+    @DisplayName("Valida o retorno do maior cômodo")
     void biggestRoom() {
         Property newProperty = UtilProperty.allProperies().get(0);
         service.createProperty(newProperty);
         Room room = service.biggestRoom(newProperty.getPropertyName());
-
-        assertEquals(room.getRoomName(), "Sala");
+        assertEquals(room.getRoomName(), "Quarto");
     }
 
     @Test
+    @DisplayName("Valida o total área por cômodo")
     void getAreaByRooms() {
         Property newProperty = UtilProperty.allProperies().get(0);
         service.createProperty(newProperty);
-        List<Room> room = service.getAreaByRooms(newProperty.getPropertyName());
+        List<Room> rooms = service.getAreaByRooms(newProperty.getPropertyName());
 
-        assertEquals(room.get(1).getRoomName(), "Cozinha");
-        assertEquals(room.get(2).getRoomName(), "Quarto");
+        assertEquals(rooms.get(0).getRoomName(), "Sala");
+        assertEquals(rooms.get(0).getTotalArea(), 50.0);
+        assertEquals(rooms.get(1).getTotalArea(), 50.0);
+        assertEquals(rooms.get(2).getTotalArea(), 60.0);
     }
 }
