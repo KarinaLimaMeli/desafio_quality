@@ -16,6 +16,8 @@ import org.mockito.quality.Strictness;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,6 +41,10 @@ class PropertyControllerTest {
 
         BDDMockito.when(propertyService.biggestRoom(ArgumentMatchers.anyString()))
             .thenReturn(UtilProperty.bigRoom());
+
+        BDDMockito.when(propertyService.getAreaByRooms(ArgumentMatchers.anyString()))
+            .thenReturn(UtilProperty.allRooms());
+
 //        BDDMockito.when(propertyService.findByName(ArgumentMatchers.anyString()))
 //            .thenReturn(UtilProperty.allProperies().get(0));
     }
@@ -111,5 +117,15 @@ class PropertyControllerTest {
 
     @Test
     void getAreaByRooms() {
+        Property property = UtilProperty.allProperies().get(0);
+        controller.createProperty(property);
+
+        String name = property.getPropertyName();
+
+        ResponseEntity<List<Room>> response = controller.getAreaByRooms(name);
+
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().get(0).getTotalArea()).isNotNull();
+        assertThat(response.getBody().get(0).getTotalArea()).isEqualTo(50.0);
     }
 }

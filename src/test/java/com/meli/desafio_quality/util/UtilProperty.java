@@ -23,7 +23,7 @@ public class UtilProperty {
 
     public static ArrayList<Room> allRooms() {
         ArrayList<Room> rooms = new ArrayList<>();
-        rooms.add(new Room("Sala", 10.0, 5.0, 0.0));
+        rooms.add(new Room("Sala", 10.0, 5.0, 50.0));
         rooms.add(new Room("Cozinha", 10.0, 5.0, 0.0));
         rooms.add(new Room("Quarto", 10.0, 5.0, 0.0));
         return rooms;
