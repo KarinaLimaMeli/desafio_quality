@@ -1,5 +1,9 @@
 package com.meli.desafio_quality.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.meli.desafio_quality.model.District;
 
 import java.math.BigDecimal;
@@ -20,5 +24,12 @@ public class UtilDistrict {
         allDistricts.add(new District("Laranjeiras", new BigDecimal(1800)));
 
         return allDistricts;
+    }
+
+    public static String toJson (District district) throws JsonProcessingException {
+        ObjectWriter writer = new ObjectMapper()
+                .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                .writer().withDefaultPrettyPrinter();
+        return writer.writeValueAsString(district);
     }
 }
