@@ -67,7 +67,7 @@ public class DistrictIntegrationTest {
         HttpEntity<District> httpEntity = new HttpEntity<>(district);
         testRestTemplate.exchange(baseUrl, HttpMethod.POST, httpEntity, District.class);
         ResponseEntity<District> response = testRestTemplate.exchange(
-                baseUrl + district.getDistrictName(), HttpMethod.GET, httpEntity, District.class);
+                baseUrl + district.getDistrictName(), HttpMethod.GET, null, District.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response).isNotNull();
