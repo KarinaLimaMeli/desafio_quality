@@ -1,6 +1,7 @@
 package com.meli.desafio_quality.integration;
 
 import com.meli.desafio_quality.model.District;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,13 +24,26 @@ public class DistrictIntegrationTest {
     private int port;
 
     @Test
-    public void createDistrict_whenNewStudent() {
+    public void createDistrict_whenNewDistrict() {
         District newDistrict = allDistricts().get(0);
-        String baseUrl = "http://localhost:" + port + "/district";
         HttpEntity<District> httpEntity = new HttpEntity<>(newDistrict);
+        String baseUrl = "http://localhost:" + port + "/district";
         ResponseEntity<District> response = testRestTemplate.exchange(baseUrl, HttpMethod.POST, httpEntity, District.class);
         District districtBody = response.getBody();
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        Assertions.assertEquals(newDistrict.getDistrictName(), districtBody.getDistrictName());
+        Assertions.assertEquals(newDistrict.getValueDistrictM2(), districtBody.getValueDistrictM2());
+    }
+
+    @Test
+    public void createDistrict_returnStatusBadRequest_whenDistrictAlreadyExists() {
+        District newDistrict = allDistricts().get(1);
+        HttpEntity<District> httpEntity = new HttpEntity<>(newDistrict);
+        String baseUrl = "http://localhost:" + port + "/district";
+        testRestTemplate.exchange(baseUrl, HttpMethod.POST, httpEntity, District.class);
+        ResponseEntity<District> response = testRestTemplate.exchange(baseUrl, HttpMethod.POST, httpEntity, District.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 }
