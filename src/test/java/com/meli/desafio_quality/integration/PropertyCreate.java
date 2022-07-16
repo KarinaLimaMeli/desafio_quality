@@ -1,6 +1,7 @@
 package com.meli.desafio_quality.integration;
 
 import com.meli.desafio_quality.controller.DistrictController;
+import com.meli.desafio_quality.handlerException.HandlerDistrictExeptions;
 import com.meli.desafio_quality.mocks.DistrictMocks;
 import com.meli.desafio_quality.model.Property;
 import com.meli.desafio_quality.util.UtilDistrict;
@@ -56,6 +57,23 @@ public class PropertyCreate {
 
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(result.getBody()).isNull();
+    }
+
+    @Test
+    public void if_createProperty_throws_exception_DistrictNotFound() {
+        Property property = UtilProperty.allProperies().get(0);
+
+        String baseURL = "http://localhost:" + PORT + "/property/create";
+
+        HttpEntity<Property> httpEntity = new HttpEntity<>(property);
+
+        ResponseEntity<Void> result = testRestTemplate.exchange(
+                baseURL,
+                HttpMethod.POST,
+                httpEntity,
+                Void.class
+        );
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 }
 

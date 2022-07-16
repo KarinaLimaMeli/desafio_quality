@@ -13,7 +13,6 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Property {
