@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.*;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Room {

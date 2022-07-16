@@ -1,6 +1,7 @@
 package com.meli.desafio_quality.integration;
 
 import com.meli.desafio_quality.model.District;
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static com.meli.desafio_quality.util.UtilDistrict.allDistricts;
-
+@Log4j2
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DistrictIntegrationTest {
 
@@ -65,7 +66,8 @@ public class DistrictIntegrationTest {
         String baseUrl = "http://localhost:" + port + "/district/";
         HttpEntity<District> httpEntity = new HttpEntity<>(district);
         testRestTemplate.exchange(baseUrl, HttpMethod.POST, httpEntity, District.class);
-        ResponseEntity<District> response = testRestTemplate.exchange(baseUrl + district.getDistrictName(), HttpMethod.GET, null, District.class);
+        ResponseEntity<District> response = testRestTemplate.exchange(
+                baseUrl + district.getDistrictName(), HttpMethod.GET, httpEntity, District.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response).isNotNull();

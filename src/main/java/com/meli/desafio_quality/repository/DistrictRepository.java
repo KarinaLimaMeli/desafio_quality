@@ -5,12 +5,13 @@ import com.meli.desafio_quality.exception.DistrictNotFound;
 import com.meli.desafio_quality.model.District;
 import lombok.Data;
 
+import lombok.Getter;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
 @Repository
-@Data
+@Getter
 public class DistrictRepository {
     private ArrayList<District> allDistricts;
 
