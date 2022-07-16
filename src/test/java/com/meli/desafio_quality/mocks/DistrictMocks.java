@@ -5,6 +5,9 @@ import com.meli.desafio_quality.model.District;
 import com.meli.desafio_quality.util.UtilDistrict;
 import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 public class DistrictMocks {
     public static void mock_getDistrictByName(String name, DistrictService service) {
@@ -57,5 +60,10 @@ public class DistrictMocks {
                 .thenAnswer(invocationOnMock -> {
                     throw new Exception("teste");
                 });
+    }
+
+    public static void mock_integration_createDistrictInDb(MockMvc mockMvc, String payLoadDistrict) throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/district")
+                .contentType(MediaType.APPLICATION_JSON).content(payLoadDistrict));
     }
 }
