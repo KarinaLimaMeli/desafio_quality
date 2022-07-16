@@ -1,7 +1,12 @@
 package com.meli.desafio_quality.integration;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.meli.desafio_quality.controller.DistrictController;
 import com.meli.desafio_quality.mocks.DistrictMocks;
+import com.meli.desafio_quality.mocks.IntegrationMocks;
 import com.meli.desafio_quality.model.Property;
 import com.meli.desafio_quality.util.UtilDistrict;
 import com.meli.desafio_quality.util.UtilProperty;
@@ -17,6 +22,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -43,7 +49,7 @@ public class PropertyCreate {
 
         String payLoadDistrict = UtilDistrict.toJson(UtilDistrict.allDistricts().get(0));
 
-        DistrictMocks.mock_integration_createDistrictInDb(mockMvc, payLoadDistrict);
+        IntegrationMocks.mock_integration_createDistrictInDb(mockMvc, payLoadDistrict);
 
         HttpEntity<Property> httpEntity = new HttpEntity<>(property);
 
