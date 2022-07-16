@@ -4,10 +4,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.meli.desafio_quality.controller.DistrictController;
 import com.meli.desafio_quality.handlerException.HandlerDistrictExeptions;
 import com.meli.desafio_quality.mocks.DistrictMocks;
 import com.meli.desafio_quality.mocks.IntegrationMocks;
+import com.meli.desafio_quality.model.District;
 import com.meli.desafio_quality.model.Property;
 import com.meli.desafio_quality.util.UtilDistrict;
 import com.meli.desafio_quality.util.UtilProperty;
@@ -24,6 +26,8 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -68,7 +72,7 @@ public class PropertyCreate {
     @Test
     public void if_createProperty_throws_exception_DistrictNotFound() {
         Property property = UtilProperty.allProperies().get(0);
-
+        property.setDistrict(new District("TesteDistrict", new BigDecimal(1000)));
         String baseURL = "http://localhost:" + PORT + "/property/create";
 
         HttpEntity<Property> httpEntity = new HttpEntity<>(property);
