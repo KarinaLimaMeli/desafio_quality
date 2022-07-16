@@ -5,7 +5,6 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Data
 @Builder
 public class ErrorBodyValidationsResponseResponse {
     private String title;

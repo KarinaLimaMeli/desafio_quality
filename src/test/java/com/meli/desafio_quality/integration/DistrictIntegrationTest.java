@@ -12,6 +12,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.math.BigDecimal;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static com.meli.desafio_quality.util.UtilDistrict.allDistricts;
 
@@ -48,6 +50,16 @@ public class DistrictIntegrationTest {
     }
 
     @Test
+    public void createDistrict_returnsStatusBadRequest_whenInvalidName() {
+        District newDistrict = new District("nome muito mas muito longo com mais de 45 caracteres", new BigDecimal(2000));
+        HttpEntity<District> httpEntity = new HttpEntity<>(newDistrict);
+        String baseUrl = "http://localhost:" + port + "/district";
+        testRestTemplate.exchange(baseUrl, HttpMethod.POST, httpEntity, District.class);
+        ResponseEntity<District> response = testRestTemplate.exchange(baseUrl, HttpMethod.POST, httpEntity, District.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
     public void getDistrictByName_whenDistrictExists() {
         District district = allDistricts().get(3);
         String baseUrl = "http://localhost:" + port + "/district/";
@@ -63,7 +75,7 @@ public class DistrictIntegrationTest {
 
     @Test
     public void getDistrictByName_returnsNotFound_whenDistrictDoesNotExists() {
-        String name = allDistricts().get(0).getDistrictName();
+        String name = "um nome";
         String baseUrl = "http://localhost:" + port + "/district/";
         ResponseEntity<District> response = testRestTemplate.exchange(baseUrl + name, HttpMethod.GET, null, District.class);
 
