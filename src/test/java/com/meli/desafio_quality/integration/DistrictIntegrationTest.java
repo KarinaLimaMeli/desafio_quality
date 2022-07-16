@@ -46,4 +46,18 @@ public class DistrictIntegrationTest {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
+
+    @Test
+    public void getDistrictByName_whenDistrictExists() {
+        District district = allDistricts().get(3);
+        String baseUrl = "http://localhost:" + port + "/district/";
+        HttpEntity<District> httpEntity = new HttpEntity<>(district);
+        testRestTemplate.exchange(baseUrl, HttpMethod.POST, httpEntity, District.class);
+        ResponseEntity<District> response = testRestTemplate.exchange(baseUrl + district.getDistrictName(), HttpMethod.GET, null, District.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response).isNotNull();
+        Assertions.assertEquals(response.getBody().getDistrictName(), district.getDistrictName());
+        Assertions.assertEquals(response.getBody().getValueDistrictM2(), district.getValueDistrictM2());
+    }
 }
