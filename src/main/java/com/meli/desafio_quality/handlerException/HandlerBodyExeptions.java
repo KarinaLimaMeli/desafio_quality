@@ -1,11 +1,9 @@
 package com.meli.desafio_quality.handlerException;
 
-import com.meli.desafio_quality.exception.ErrorBodyValidationsResponseResponse;
-import com.meli.desafio_quality.exception.ErrorResponseDetails;
+import com.meli.desafio_quality.exception.ErrorBodyValidationsResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,7 +22,7 @@ public class HandlerBodyExeptions extends ResponseEntityExceptionHandler {
         List<FieldError> errors = ex.getBindingResult().getFieldErrors();
 
         return new ResponseEntity<>(
-                ErrorBodyValidationsResponseResponse.builder()
+                ErrorBodyValidationsResponse.builder()
                         .timestamp(LocalDateTime.now())
                         .title("Campos inválidos")
                         .fields(errors.stream().map(
