@@ -62,8 +62,4 @@ public class DistrictMocks {
                 });
     }
 
-    public static void mock_integration_createDistrictInDb(MockMvc mockMvc, String payLoadDistrict) throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/district")
-                .contentType(MediaType.APPLICATION_JSON).content(payLoadDistrict));
-    }
 }

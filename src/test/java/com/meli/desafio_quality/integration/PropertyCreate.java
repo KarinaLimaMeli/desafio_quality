@@ -3,6 +3,7 @@ package com.meli.desafio_quality.integration;
 import com.meli.desafio_quality.controller.DistrictController;
 import com.meli.desafio_quality.handlerException.HandlerDistrictExeptions;
 import com.meli.desafio_quality.mocks.DistrictMocks;
+import com.meli.desafio_quality.mocks.IntegrationMocks;
 import com.meli.desafio_quality.model.Property;
 import com.meli.desafio_quality.util.UtilDistrict;
 import com.meli.desafio_quality.util.UtilProperty;
@@ -44,7 +45,7 @@ public class PropertyCreate {
 
         String payLoadDistrict = UtilDistrict.toJson(UtilDistrict.allDistricts().get(0));
 
-        DistrictMocks.mock_integration_createDistrictInDb(mockMvc, payLoadDistrict);
+        IntegrationMocks.mock_integration_createDistrictInDb(mockMvc, payLoadDistrict);
 
         HttpEntity<Property> httpEntity = new HttpEntity<>(property);
 
