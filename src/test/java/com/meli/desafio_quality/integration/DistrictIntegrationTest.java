@@ -60,4 +60,13 @@ public class DistrictIntegrationTest {
         Assertions.assertEquals(response.getBody().getDistrictName(), district.getDistrictName());
         Assertions.assertEquals(response.getBody().getValueDistrictM2(), district.getValueDistrictM2());
     }
+
+    @Test
+    public void getDistrictByName_returnsNotFound_whenDistrictDoesNotExists() {
+        String name = allDistricts().get(0).getDistrictName();
+        String baseUrl = "http://localhost:" + port + "/district/";
+        ResponseEntity<District> response = testRestTemplate.exchange(baseUrl + name, HttpMethod.GET, null, District.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
 }
