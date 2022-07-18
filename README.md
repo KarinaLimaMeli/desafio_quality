@@ -43,5 +43,5 @@ diferentes imóveis em sua carteira de clientes.
   **Como a nossa equipe de desenvolvedores é muito preocupada com a qualidade do nosso serviço, 
   desenvolvemos testes unitários e de integração, garantindo que nossa aplicação funciona, é escalável e segura;**
 
-**A documentação das rotas está neste [arquivo](Desafio Quality.postman_collection.json)**
+A documentação das rotas está neste [arquivo](https://github.com/KarinaLimaMeli/desafio_quality/blob/main/Desafio%20Quality.postman_collection.json)
 
