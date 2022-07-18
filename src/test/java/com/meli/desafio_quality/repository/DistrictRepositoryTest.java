@@ -53,7 +53,7 @@ public class DistrictRepositoryTest {
     }
 
     @Test
-    void NotFoundDistrictByName() {
+    void notFoundDistrictByName() {
         String name = "nome que não existe no BD";
         District response = null;
         Exception testException = null;
